@@ -1,0 +1,5 @@
+---
+- hosts: server
+  remote_user: ubuntu
+  roles:
+    - mercurial
