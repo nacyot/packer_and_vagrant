@@ -1,0 +1,30 @@
+{
+    "builders": [
+        {
+            "type": "amazon-ebs",
+            "region": "ap-northeast-2",
+            "availability_zone": "ap-northeast-2c",
+            "source_ami": "ami-9d6fd8f3",
+            "instance_type": "t2.small",
+            "ssh_username": "ubuntu",
+            "ami_name": "image {{isotime \"2006-01-02 1504\" | clean_ami_name}}",
+            "security_group_ids": [
+                "sg-b8ad09d1",
+                "sg-5594bc3f"
+            ],
+            "subnet_id": "subnet-abcacae1",
+            "ssh_interface": "public_ip",
+            "associate_public_ip_address": true
+        }
+    ],
+    "provisioners": [
+        {
+            "type": "ansible",
+            "playbook_file": "./provisioner/server.yml",
+            "host_alias": "server",
+            "extra_arguments": [
+                "--extra-vars", "ansible_python_interpreter=/usr/bin/python3"
+            ]
+        }
+    ]
+}
